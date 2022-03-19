@@ -1,5 +1,13 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@{
+    ViewData["Title"] = "Apagar um cliente";
 }
+
+<div class="text-center">
+    <h1 class="display-4">Realmente deseja apagar o cliente(Armando)</h1>
+</div>
+
+  <div class="d-grid gap-2">
+  <button type="submit" class="btn btn-danger" asp-controller='Cliente' asp-action='ApagarConfirmacao'>Confirmar exclusão</button>
+
+  <a class='btn btn-secondary' asp-controller='Cliente' asp-action='Index'>Cancelar exclusão</a>
+  </div>

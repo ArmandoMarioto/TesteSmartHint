@@ -1,7 +1,13 @@
+using Microsoft.EntityFrameworkCore;
+using Teste.Data;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddDbContext<BancoContext>(options => options.UseMySQL(
+    "server=localhost;initial catalog=BancoTesteHint;uid=armando;pwd=010203"
+    ));
 
 var app = builder.Build();
 

@@ -4,7 +4,7 @@
 
 <div class="text-center">
     <div margin-left='auto'>
-        <a class='btn btn-primary' role='button'>Adicionar Cliente</a>
+        <a class='btn btn-primary' role='button' asp-controller='Cliente' asp-action='Criar'>Adicionar Cliente</a>
     </div>
     <br />
     <h1 class="display-4">Listagem de Clientes!</h1>
@@ -108,8 +108,8 @@
             <td>mdo</td>
             <td>
               <div class="btn-group" role="group">
-              <a  role='button' class="btn btn-primary">Editar</a>
-              <a  role='button' class="btn btn-danger">Apagar</a>
+              <a  role='button' class="btn btn-primary" asp-controller='Cliente' asp-action='Editar'>Editar</a>
+              <a  role='button' class="btn btn-danger" asp-controller='Cliente' asp-action='Apagar'>Apagar</a>
             </div>
             </td>
             
