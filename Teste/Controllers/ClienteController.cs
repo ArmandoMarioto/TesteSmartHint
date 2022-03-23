@@ -41,15 +41,23 @@ namespace Teste.Controllers
         [HttpPost]
         public IActionResult Criar(ClienteModel cliente)
         {
-            _clienteRepositorio.Adicionar(cliente);
-            return RedirectToAction("Index");
+            if (ModelState.IsValid)
+            {
+                _clienteRepositorio.Adicionar(cliente);
+                return RedirectToAction("Index");
+            }
+            return View(cliente);
         }
 
         [HttpPost]
         public IActionResult Alterar(ClienteModel cliente)
         {
-            _clienteRepositorio.Atualizar(cliente);
-            return RedirectToAction("Index");
+            if (ModelState.IsValid)
+            {
+                _clienteRepositorio.Atualizar(cliente);
+                return RedirectToAction("Index");
+            }
+            return View("Editar",cliente);
         }
     }
 }

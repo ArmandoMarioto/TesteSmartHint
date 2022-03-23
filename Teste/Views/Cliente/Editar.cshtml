@@ -3,20 +3,27 @@
     ViewData["Title"] = "Editar cliente";
 }
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
+<script type="text/javascript">
+$("#telefone").mask("(00) 00000-0000");
+</script>
+
 <div class="text-center">
     <h1 class="display-4">Editar cliente</h1>
 </div>
 
 
 <form asp-controller='Cliente' asp-action='Alterar' method='post'>
-    <input type='hidden' asp-for='Id'/>
+    <input type='hidden' asp-for=@Model.Id/>
   <div class="mb-3">
     <label for="name" class="form-label"
     data-bs-toggle="tooltip" data-bs-placement="right" title="Nome completo ou Razão Social do Cliente.*"
     >Nome do Cliente/Razão Social:</label>
     <input type="text" asp-for='Name' class="form-control"
     maxlength="150"
-     required>
+     >
+     @Html.ValidationMessageFor(cliente => cliente.Name)
   </div>
 
   <div class="mb-3">
@@ -24,14 +31,16 @@
     data-bs-toggle="tooltip" data-bs-placement="right" title="E-mail do Cliente.">E-Mail:*</label>
     <input type="email" asp-for='Email' class="form-control"
      maxlength="150"
-    required>
+    >
+    @Html.ValidationMessageFor(cliente => cliente.Email)
   </div>
     
   <div class="mb-3">
     <label for="telefone" class="form-label"
     data-bs-toggle="tooltip" data-bs-placement="right" title="Telefone do Cliente.">Telefone*</label>
     <input type="text" asp-for='Telefone' class="form-control" id="telefone" placeholder='(##)#####-####' title="Telefone do Cliente"
-     required>
+     >
+     @Html.ValidationMessageFor(cliente => cliente.Telefone)
   </div>
 
   <div class="mb-3">
@@ -53,7 +62,8 @@
     <label for="cpf" class="form-label"
     data-bs-toggle="tooltip" data-bs-placement="right" title="Insira o CPF ou o CNPJ do Cliente.">CPF</label>
     <input type="text" asp-for='Cpf' class="form-control .cpf-mask" id="cpf"
-    pattern="^\d{3}\.\d{3}\.\d{3}-\d{2}$" required>
+    pattern="^\d{3}\.\d{3}\.\d{3}-\d{2}$">
+    @Html.ValidationMessageFor(cliente => cliente.Cpf)
   </div>
   
   <div class="mb-3">
@@ -61,7 +71,8 @@
     data-bs-toggle="tooltip" data-bs-placement="right" title="Inscrição Estadual do Cliente, selecionar Isento caso assim for.">
     Inscrição Estadual:</label>
     <input type="text" asp-for='Estadual' class="form-control" placeholder='###.###.###-###' 
-    pattern="^\d{3}\.\d{3}\.\d{3}-\d{2}$" required>
+    pattern="^\d{3}\.\d{3}\.\d{3}-\d{2}$">
+    @Html.ValidationMessageFor(cliente => cliente.Estadual)
   </div>
 
   <div class="mb-3">
@@ -81,7 +92,8 @@ data-bs-toggle="tooltip" data-bs-placement="right" title="Selecione o gênero do
 
   <div class="mb-3">
     <label for="nascimento" class="form-label">Data de Nascimento</label>
-    <input type="date" asp-for='Nascimento' class="form-control" placeholder='Digite seu telefone' required>
+    <input type="date" asp-for='Nascimento' class="form-control" placeholder='Digite seu telefone'>
+    @Html.ValidationMessageFor(cliente => cliente.Nascimento)
   </div>
 
    <div class="mb-3">
@@ -97,7 +109,8 @@ data-bs-toggle="tooltip" data-bs-placement="right" title="Selecione o gênero do
     <input type="password" asp-for='senha' class="form-control"
     maxlength='15'
     min='8'
-    required>
+    >
+    @Html.ValidationMessageFor(cliente => cliente.senha)
   </div>
 
   <div class="mb-3">
