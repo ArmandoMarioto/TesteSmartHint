@@ -1,4 +1,5 @@
-﻿@{
+﻿@model ClienteModel
+@{
     ViewData["Title"] = "Criar um cliente";
 
 }
@@ -11,13 +12,12 @@
     <h1 class="display-4">Cadastrar cliente</h1>
 </div>
 
-<form>
+<form asp-controller='Cliente' asp-action='Criar' method='post'>
   <div class="mb-3">
     <label for="name" class="form-label"
     data-bs-toggle="tooltip" data-bs-placement="right" title="Nome completo ou Razão Social do Cliente.*"
     >Nome do Cliente/Razão Social:</label>
-    <input type="text" class="form-control"
-    pattern="/[a-zA-Z0-9]+/" 
+    <input type="text" asp-for='Name' class="form-control"
     maxlength="150"
      required>
   </div>
@@ -25,8 +25,7 @@
   <div class="mb-3">
     <label for="email" class="form-label"
     data-bs-toggle="tooltip" data-bs-placement="right" title="E-mail do Cliente.">E-Mail:*</label>
-    <input type="email" class="form-control"
-    pattern="/[a-zA-Z0-9]+/"
+    <input type="email" asp-for='Email' class="form-control"
      maxlength="150"
     required>
   </div>
@@ -34,20 +33,20 @@
   <div class="mb-3">
     <label for="telefone" class="form-label"
     data-bs-toggle="tooltip" data-bs-placement="right" title="Telefone do Cliente.">Telefone*</label>
-    <input type="text" class="form-control" id="telefone" placeholder='(##)#####-####' title="Telefone do Cliente"
-    pattern="\([0-9]{2}\)[0-9]{5,6}-[0-9]{5,6}$" required>
+    <input type="text" asp-for='Telefone' class="form-control" id="telefone" placeholder='(##)#####-####' title="Telefone do Cliente"
+     required>
   </div>
 
   <div class="mb-3">
     <label for="telefone" class="form-label">Data</label>
-    <input type="text" class="form-control .date-mask" value=@DateTime.Now readonly>
+    <input type="text" asp-for='Date' class="form-control .date-mask" value=@DateTime.Now readonly>
   </div>
 
   <div class="text-center">
     <h1 class="display-4">Informações Pessoais</h1>
 </div>
     <label for="tipo" class="form-label">Tipo de Pessoa:*</label>
-  <select id='tipo' class="form-select form-select-lg mb-3" aria-label=".form-select-lg example"
+  <select id='tipo' asp-for='Tipo' class="form-select form-select-lg mb-3" aria-label=".form-select-lg example"
       data-bs-toggle="tooltip" data-bs-placement="right" title="Selecione o tipo de Pessoa." required>
       <option value="1" selected>Física</option>
       <option value="2">Jurídica</option>
@@ -56,7 +55,7 @@
   <div class="mb-3">
     <label for="cpf" class="form-label"
     data-bs-toggle="tooltip" data-bs-placement="right" title="Insira o CPF ou o CNPJ do Cliente.">CPF</label>
-    <input type="text" class="form-control .cpf-mask" id="cpf"
+    <input type="text" asp-for='Cpf' class="form-control .cpf-mask" id="cpf"
     pattern="^\d{3}\.\d{3}\.\d{3}-\d{2}$" required>
   </div>
   
@@ -64,12 +63,12 @@
     <label for="Estadual" class="form-label"
     data-bs-toggle="tooltip" data-bs-placement="right" title="Inscrição Estadual do Cliente, selecionar Isento caso assim for.">
     Inscrição Estadual:</label>
-    <input type="text" class="form-control" placeholder='###.###.###-###' 
+    <input type="text" asp-for='Estadual' class="form-control" placeholder='###.###.###-###' 
     pattern="^\d{3}\.\d{3}\.\d{3}-\d{2}$" required>
   </div>
 
   <div class="mb-3">
-  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+  <input class="form-check-input" asp-for='Isento' type="checkbox" value="" id="flexCheckDefault">
   <label class="form-check-label" for="flexCheckDefault">
     Isento
   </label>
@@ -77,7 +76,7 @@
 
 <label for="genero" class="form-label"
 data-bs-toggle="tooltip" data-bs-placement="right" title="Selecione o gênero do Cliente.">Gênero:*</label>
-  <select id='genero' class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+  <select id='genero' asp-for='Genero' class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
       <option value="1" selected>Feminino</option>
       <option value="2">Masculino</option>
       <option value="3">Outro</option>
@@ -85,11 +84,11 @@ data-bs-toggle="tooltip" data-bs-placement="right" title="Selecione o gênero do
 
   <div class="mb-3">
     <label for="nascimento" class="form-label">Data de Nascimento</label>
-    <input type="date" class="form-control" placeholder='Digite seu telefone' required>
+    <input type="date" asp-for='Nascimento' class="form-control" placeholder='Digite seu telefone' required>
   </div>
 
    <div class="mb-3">
-  <input class="form-check-input" type="checkbox" value="" id="bloqueadoCheck"
+  <input class="form-check-input" asp-for='Bloqueado' type="checkbox" value="" id="bloqueadoCheck"
   data-bs-toggle="tooltip" data-bs-placement="right" title="Bloqueio o acesso do Cliente na sua Loja.">
   <label class="form-check-label" for="bloqueadoCheck">
     Bloqueado
@@ -98,7 +97,7 @@ data-bs-toggle="tooltip" data-bs-placement="right" title="Selecione o gênero do
 
   <div class="mb-3">
     <label for="senha" class="form-label">Senha de Acesso:*</label>
-    <input type="password" class="form-control"
+    <input type="password" asp-for='senha' class="form-control"
     maxlength='15'
     min='8'
     required>
@@ -118,18 +117,3 @@ data-bs-toggle="tooltip" data-bs-placement="right" title="Selecione o gênero do
   <a class='btn btn-secondary' asp-controller='Cliente' asp-action='Index'>Voltar</a>
   </div>
 </form>
-
-@section Scripts {
-    <script>
-        $(document).ready(function ()
-        {
-            $("#telefone").inputmask("mask", { "mask": "(99) 9999-99999" });
-            $("#cpf").inputmask("mask", { "mask": "999.999.999-99" }, {reverse:true});
-            $("#cep").inputmask("mask", { "mask": "99999-999" });
-            $("#nascimento").inputmask("mask", { "mask": "99/99/9999" });
-            $("#preco").inputmask("mask", { "mask": "999.999,99" }, { reverse: true });
-            $("#valor").inputmask("mask", { "mask": "#.##9,99" }, { reverse: true });
-            $("#ip").inputmask("mask", { "mask": "999.999.999.999" });
-    });
-    </script>
-}

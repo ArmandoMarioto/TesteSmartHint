@@ -5,10 +5,10 @@ namespace Teste.Data
 {
     public class BancoContext: DbContext
     {
-         public BancoContext(DbContextOptions<BancoContext> options): base(options) => Database.EnsureCreated();
+        public BancoContext(DbContextOptions<BancoContext> options) : base(options) => Database.EnsureCreated();
     
 
-        public DbSet<ClienteModel> Clinetes
+        public DbSet<ClienteModel> Clientes
             { get; set; }
 
     }

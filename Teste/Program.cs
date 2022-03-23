@@ -1,5 +1,8 @@
 using Microsoft.EntityFrameworkCore;
+using System.Configuration;
 using Teste.Data;
+using Teste.Repositorio;
+using ConfigurationManager = System.Configuration.ConfigurationManager;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,6 +11,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<BancoContext>(options => options.UseMySQL(
     "server=localhost;initial catalog=BancoTesteHint;uid=armando;pwd=010203"
     ));
+builder.Services.AddScoped<IClienteRepositorio, ClienteRepositorio>();
 
 var app = builder.Build();
 
