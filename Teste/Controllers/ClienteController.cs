@@ -21,19 +21,34 @@ namespace Teste.Controllers
         {
             return View();
         }
-        public IActionResult Editar()
+        public IActionResult Editar(int Id)
         {
-            return View();
+            ClienteModel cliente = _clienteRepositorio.BuscaPorId(Id);
+            return View(cliente);
         }
-        public IActionResult Apagar()
+        public IActionResult Apagar(int Id)
         {
-            return View();
+            ClienteModel cliente = _clienteRepositorio.BuscaPorId(Id);
+            return View(cliente);
         }
-
+        public IActionResult ApagarConfirmacao(int Id)
+        {
+            Console.WriteLine("asfasfasfasfasf");
+            _clienteRepositorio.Apagar(Id);
+            return RedirectToAction("Index");
+        }
+        
         [HttpPost]
         public IActionResult Criar(ClienteModel cliente)
         {
             _clienteRepositorio.Adicionar(cliente);
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public IActionResult Alterar(ClienteModel cliente)
+        {
+            _clienteRepositorio.Atualizar(cliente);
             return RedirectToAction("Index");
         }
     }

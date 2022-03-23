@@ -1,5 +1,6 @@
-﻿@{
-    ViewData["Title"] = "Editar um cliente";
+﻿@model ClienteModel
+@{
+    ViewData["Title"] = "Editar cliente";
 }
 
 <div class="text-center">
@@ -7,20 +8,104 @@
 </div>
 
 
-<form>
+<form asp-controller='Cliente' asp-action='Alterar' method='post'>
+    <input type='hidden' asp-for='Id'/>
   <div class="mb-3">
-    <label for="name" class="form-label">Nome</label>
-    <input type="text" class="form-control" placeholder='Digite seu nome' >
+    <label for="name" class="form-label"
+    data-bs-toggle="tooltip" data-bs-placement="right" title="Nome completo ou Razão Social do Cliente.*"
+    >Nome do Cliente/Razão Social:</label>
+    <input type="text" asp-for='Name' class="form-control"
+    maxlength="150"
+     required>
   </div>
 
   <div class="mb-3">
-    <label for="email" class="form-label">Email</label>
-    <input type="email" class="form-control" placeholder='Digite seu email' >
+    <label for="email" class="form-label"
+    data-bs-toggle="tooltip" data-bs-placement="right" title="E-mail do Cliente.">E-Mail:*</label>
+    <input type="email" asp-for='Email' class="form-control"
+     maxlength="150"
+    required>
+  </div>
+    
+  <div class="mb-3">
+    <label for="telefone" class="form-label"
+    data-bs-toggle="tooltip" data-bs-placement="right" title="Telefone do Cliente.">Telefone*</label>
+    <input type="text" asp-for='Telefone' class="form-control" id="telefone" placeholder='(##)#####-####' title="Telefone do Cliente"
+     required>
   </div>
 
   <div class="mb-3">
-    <label for="telefone" class="form-label">Telefone</label>
-    <input type="text" class="form-control" placeholder='Digite seu telefone'>
+    <label for="telefone" class="form-label">Data</label>
+    <input type="text" asp-for='Date' class="form-control .date-mask" value=@DateTime.Now readonly>
+  </div>
+
+  <div class="text-center">
+    <h1 class="display-4">Informações Pessoais</h1>
+</div>
+    <label for="tipo" class="form-label">Tipo de Pessoa:*</label>
+  <select id='tipo' asp-for='Tipo' class="form-select form-select-lg mb-3" aria-label=".form-select-lg example"
+      data-bs-toggle="tooltip" data-bs-placement="right" title="Selecione o tipo de Pessoa." required>
+      <option value="1" selected>Física</option>
+      <option value="2">Jurídica</option>
+</select>
+
+  <div class="mb-3">
+    <label for="cpf" class="form-label"
+    data-bs-toggle="tooltip" data-bs-placement="right" title="Insira o CPF ou o CNPJ do Cliente.">CPF</label>
+    <input type="text" asp-for='Cpf' class="form-control .cpf-mask" id="cpf"
+    pattern="^\d{3}\.\d{3}\.\d{3}-\d{2}$" required>
+  </div>
+  
+  <div class="mb-3">
+    <label for="Estadual" class="form-label"
+    data-bs-toggle="tooltip" data-bs-placement="right" title="Inscrição Estadual do Cliente, selecionar Isento caso assim for.">
+    Inscrição Estadual:</label>
+    <input type="text" asp-for='Estadual' class="form-control" placeholder='###.###.###-###' 
+    pattern="^\d{3}\.\d{3}\.\d{3}-\d{2}$" required>
+  </div>
+
+  <div class="mb-3">
+  <input class="form-check-input" asp-for='Isento' type="checkbox" value="" id="flexCheckDefault">
+  <label class="form-check-label" for="flexCheckDefault">
+    Isento
+  </label>
+</div>
+
+<label for="genero" class="form-label"
+data-bs-toggle="tooltip" data-bs-placement="right" title="Selecione o gênero do Cliente.">Gênero:*</label>
+  <select id='genero' asp-for='Genero' class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+      <option value="1" selected>Feminino</option>
+      <option value="2">Masculino</option>
+      <option value="3">Outro</option>
+</select>
+
+  <div class="mb-3">
+    <label for="nascimento" class="form-label">Data de Nascimento</label>
+    <input type="date" asp-for='Nascimento' class="form-control" placeholder='Digite seu telefone' required>
+  </div>
+
+   <div class="mb-3">
+  <input class="form-check-input" asp-for='Bloqueado' type="checkbox" value="" id="bloqueadoCheck"
+  data-bs-toggle="tooltip" data-bs-placement="right" title="Bloqueio o acesso do Cliente na sua Loja.">
+  <label class="form-check-label" for="bloqueadoCheck">
+    Bloqueado
+  </label>
+</div>
+
+  <div class="mb-3">
+    <label for="senha" class="form-label">Senha de Acesso:*</label>
+    <input type="password" asp-for='senha' class="form-control"
+    maxlength='15'
+    min='8'
+    required>
+  </div>
+
+  <div class="mb-3">
+    <label for="confirmacaoSenha" class="form-label">Confirmação da Senha de Acesso:*</label>
+    <input type="password" class="form-control"
+    maxlength='15'
+    min='8'
+    required>
   </div>
   <div class="d-grid gap-2">
   <button type="submit" class="btn btn-primary">Alterar</button>

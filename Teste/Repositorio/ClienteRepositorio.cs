@@ -20,5 +20,31 @@ namespace Teste.Repositorio
             _bancoContext.SaveChanges();
             return cliente;
         }
+
+        public ClienteModel BuscaPorId(int Id)
+        {
+            return _bancoContext.Clientes.FirstOrDefault(cliente => cliente.Id == Id);
+        }
+
+        public ClienteModel Atualizar(ClienteModel cliente)
+        {
+            ClienteModel clientedb = BuscaPorId(cliente.Id);
+            if (clientedb == null) throw new Exception("Houve um erro na atualização do cliente.");
+
+            clientedb.Name = cliente.Name;
+            _bancoContext.Clientes.Update(clientedb);
+            _bancoContext.SaveChanges();
+
+            return cliente;
+        }
+
+        public bool Apagar(int Id)
+        {
+            ClienteModel clientedb = BuscaPorId(Id);
+            if (clientedb == null) throw new Exception("Houve um erro na exclusão do cliente.");
+            _bancoContext.Clientes.Remove(clientedb);
+            _bancoContext.SaveChanges();
+            return true;
+        }
     }
 }
