@@ -1,8 +1,6 @@
 using Microsoft.EntityFrameworkCore;
-using System.Configuration;
 using Teste.Data;
 using Teste.Repositorio;
-using ConfigurationManager = System.Configuration.ConfigurationManager;
 
 var builder = WebApplication.CreateBuilder(args);
 

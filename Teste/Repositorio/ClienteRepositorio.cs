@@ -10,6 +10,10 @@ namespace Teste.Repositorio
         {
             _bancoContext = bancoContext;
         }
+        public List<ClienteModel> BuscarTodos()
+        {
+            return _bancoContext.Clientes.ToList();
+        }
         public ClienteModel Adicionar(ClienteModel cliente)
         {
             _bancoContext.Clientes.Add(cliente);
