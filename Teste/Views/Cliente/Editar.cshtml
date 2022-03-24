@@ -5,9 +5,12 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
-<script type="text/javascript">
-$("#telefone").mask("(00) 00000-0000");
-</script>
+  <script type="text/javascript">
+    $("#telefone").mask("(00) 00000-0000");
+    $("#cpf").mask("###.###.###-##");
+    $("#cnpj").mask("##.###.###/####-##");
+    $("#estadual").mask("###.###.###-###");
+    </script>
 
 <div class="text-center">
     <h1 class="display-4">Editar cliente</h1>
@@ -16,74 +19,86 @@ $("#telefone").mask("(00) 00000-0000");
 
 <form asp-controller='Cliente' asp-action='Alterar' method='post'>
     <input type='hidden' asp-for=@Model.Id/>
-  <div class="mb-3">
-    <label for="name" class="form-label"
+    <div class="mb-3">
+    <h4 for="name" class="form-label"
     data-bs-toggle="tooltip" data-bs-placement="right" title="Nome completo ou Razão Social do Cliente.*"
-    >Nome do Cliente/Razão Social:</label>
+    >Nome do Cliente/Razão Social:</h4>
     <input type="text" asp-for='Name' class="form-control"
     maxlength="150"
      >
+     <div class="valid-tooltip">
+        Nome completo ou Razão Social do Cliente.
+      </div>
      @Html.ValidationMessageFor(cliente => cliente.Name)
   </div>
 
   <div class="mb-3">
-    <label for="email" class="form-label"
-    data-bs-toggle="tooltip" data-bs-placement="right" title="E-mail do Cliente.">E-Mail:*</label>
+    <h4 for="email" class="form-label"
+    data-bs-toggle="tooltip" data-bs-placement="right" title="E-mail do Cliente.">E-Mail:*</h4>
     <input type="email" asp-for='Email' class="form-control"
-     maxlength="150"
-    >
+     maxlength="150">
     @Html.ValidationMessageFor(cliente => cliente.Email)
   </div>
     
   <div class="mb-3">
-    <label for="telefone" class="form-label"
-    data-bs-toggle="tooltip" data-bs-placement="right" title="Telefone do Cliente.">Telefone*</label>
-    <input type="text" asp-for='Telefone' class="form-control" id="telefone" placeholder='(##)#####-####' title="Telefone do Cliente"
+    <h4 for="telefone" class="form-label"
+    data-bs-toggle="tooltip" data-bs-placement="right" title="Telefone do Cliente.">Telefone*</h4>
+    <input type="text" asp-for='Telefone' class="form-control" id="telefone" placeholder='(##) #####-####' title="Telefone do Cliente"
      >
      @Html.ValidationMessageFor(cliente => cliente.Telefone)
   </div>
 
   <div class="mb-3">
-    <label for="telefone" class="form-label">Data</label>
+    <h4 for="telefone" class="form-label">Data</h4>
     <input type="text" asp-for='Date' class="form-control .date-mask" value=@DateTime.Now readonly>
   </div>
 
   <div class="text-center">
     <h1 class="display-4">Informações Pessoais</h1>
 </div>
-    <label for="tipo" class="form-label">Tipo de Pessoa:*</label>
+    <h4 for="tipo" class="form-label">Tipo de Pessoa:*</h4>
   <select id='tipo' asp-for='Tipo' class="form-select form-select-lg mb-3" aria-label=".form-select-lg example"
       data-bs-toggle="tooltip" data-bs-placement="right" title="Selecione o tipo de Pessoa." required>
       <option value="1" selected>Física</option>
       <option value="2">Jurídica</option>
 </select>
 
-  <div class="mb-3">
-    <label for="cpf" class="form-label"
-    data-bs-toggle="tooltip" data-bs-placement="right" title="Insira o CPF ou o CNPJ do Cliente.">CPF</label>
-    <input type="text" asp-for='Cpf' class="form-control .cpf-mask" id="cpf"
-    pattern="^\d{3}\.\d{3}\.\d{3}-\d{2}$">
-    @Html.ValidationMessageFor(cliente => cliente.Cpf)
-  </div>
+    <div class="mb-3" id='divCpf'>
+        <h4 for="cpf" class="form-label"
+        data-bs-toggle="tooltip" data-bs-placement="right" title="Insira o CPF do Cliente.">CPF</h4>
+        <input type="text" asp-for='Cpf' class="form-control" id="cpf" placeholder="###.###.###-##"
+        maxlength="14"
+        pattern="^\d{3}\.\d{3}\.\d{3}-\d{2}$">
+    </div>
+
+    <div class="mb-3" id='divCnpj'>
+        <h4 for="cpf" class="form-label"
+        data-bs-toggle="tooltip" data-bs-placement="right" title="Insira o CNPJ do Cliente.">CNPJ</h4>
+        <input type="text" asp-for='Cpf' class="form-control" id="cnpj" placeholder="##.###.###/####-##"
+        maxlength="18"
+        pattern="^\d{2}\.\d{3}\.\d{3}/\d{4}-\d{2}$">
+    </div>
+   
+    
   
   <div class="mb-3">
-    <label for="Estadual" class="form-label"
+    <h4 for="Estadual" class="form-label"
     data-bs-toggle="tooltip" data-bs-placement="right" title="Inscrição Estadual do Cliente, selecionar Isento caso assim for.">
-    Inscrição Estadual:</label>
-    <input type="text" asp-for='Estadual' class="form-control" placeholder='###.###.###-###' 
-    pattern="^\d{3}\.\d{3}\.\d{3}-\d{2}$">
-    @Html.ValidationMessageFor(cliente => cliente.Estadual)
+    Inscrição Estadual:</h4>
+    <input type="text" asp-for='Estadual'id="estadual" class="form-control" placeholder='###.###.###-###' 
+    maxlength="15"
+    pattern="^\d{3}\.\d{3}\.\d{3}-\d{3}$" >
   </div>
 
   <div class="mb-3">
-  <input class="form-check-input" asp-for='Isento' type="checkbox" value="" id="flexCheckDefault">
-  <label class="form-check-label" for="flexCheckDefault">
-    Isento
+  <input class="form-check-input" style="margin:20px 10px 0px 10px;" asp-for='Isento' type="checkbox"  id="flexCheckDefault">
+  <label class="form-check-label" style="font-size:32px;" for="flexCheckDefault" data-bs-toggle="tooltip" data-bs-placement="right" title="Isentar Cliente...">
+      <b>Isento</b>
   </label>
 </div>
 
-<label for="genero" class="form-label"
-data-bs-toggle="tooltip" data-bs-placement="right" title="Selecione o gênero do Cliente.">Gênero:*</label>
+<h4 for="genero" class="form-label"
+data-bs-toggle="tooltip" data-bs-placement="right" title="Selecione o gênero do Cliente.">Gênero:*</h4>
   <select id='genero' asp-for='Genero' class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
       <option value="1" selected>Feminino</option>
       <option value="2">Masculino</option>
@@ -91,34 +106,31 @@ data-bs-toggle="tooltip" data-bs-placement="right" title="Selecione o gênero do
 </select>
 
   <div class="mb-3">
-    <label for="nascimento" class="form-label">Data de Nascimento</label>
+    <h4 for="nascimento" class="form-label">Data de Nascimento</h4>
     <input type="date" asp-for='Nascimento' class="form-control" placeholder='Digite seu telefone'>
-    @Html.ValidationMessageFor(cliente => cliente.Nascimento)
   </div>
 
    <div class="mb-3">
-  <input class="form-check-input" asp-for='Bloqueado' type="checkbox" value="" id="bloqueadoCheck"
-  data-bs-toggle="tooltip" data-bs-placement="right" title="Bloqueio o acesso do Cliente na sua Loja.">
-  <label class="form-check-label" for="bloqueadoCheck">
-    Bloqueado
+  <input style="margin:20px 10px 0px 10px;" class="form-check-input" asp-for='Bloqueado' type="checkbox"  id="bloqueadoCheck">
+  <label class="form-check-label" style="font-size:32px;" for="bloqueadoCheck" data-bs-toggle="tooltip" data-bs-placement="right" title="Bloqueio o acesso do Cliente na sua Loja.">
+    <b>Bloqueado</b>
   </label>
 </div>
 
   <div class="mb-3">
-    <label for="senha" class="form-label">Senha de Acesso:*</label>
+    <h4 for="senha" class="form-label">Senha de Acesso:*</h4>
     <input type="password" asp-for='senha' class="form-control"
     maxlength='15'
     min='8'
     >
-    @Html.ValidationMessageFor(cliente => cliente.senha)
   </div>
 
   <div class="mb-3">
-    <label for="confirmacaoSenha" class="form-label">Confirmação da Senha de Acesso:*</label>
+    <h4 for="confirmacaoSenha" class="form-label">Confirmação da Senha de Acesso:*</h4>
     <input type="password" class="form-control"
     maxlength='15'
     min='8'
-    required>
+    >
   </div>
   <div class="d-grid gap-2">
   <button type="submit" class="btn btn-primary">Alterar</button>

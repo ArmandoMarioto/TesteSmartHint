@@ -4,8 +4,10 @@
 }
 
 <div class="text-center">
-    <div margin-left='auto'>
-        <a class='btn btn-primary' role='button' asp-controller='Cliente' asp-action='Criar'>Adicionar Cliente</a>
+    <div >
+        <h2 class="display-8">Consulte os seus Clientes cadastrados na
+sua Loja ou realize o cadastro de novos Cliente</h2>
+        <a class='btn btn-primary' style="float:right;" role='button' asp-controller='Cliente' asp-action='Criar'>Adicionar Cliente</a>
     </div>
     <br />
     @if(TempData["MensagemSucesso"] != null)
@@ -40,39 +42,24 @@
               <label class="form-check-label" for="checkbox" class="mr-2 label-table"></label>
             </th>
             <th class="th-lg">
-              <a>First Name
-                <i class="fas fa-sort ml-1"></i>
+              <a>Nome/Razão Social:
               </a>
             </th>
             <th class="th-lg">
-              <a href="">Last Name
-                <i class="fas fa-sort ml-1"></i>
+              <a >E-mail:</a>
+            </th>
+            <th class="th-lg">
+              <a>Telefone:
               </a>
             </th>
             <th class="th-lg">
-              <a href="">Username
-                <i class="fas fa-sort ml-1"></i>
+              <a>Data de Cadastro:
               </a>
             </th>
             <th class="th-lg">
-              <a href="">Username
-                <i class="fas fa-sort ml-1"></i>
-              </a>
+              <label>Bloqueado</label>
             </th>
             <th class="th-lg">
-              <a href="">Username
-                <i class="fas fa-sort ml-1"></i>
-              </a>
-            </th>
-            <th class="th-lg">
-              <a href="">Username
-                <i class="fas fa-sort ml-1"></i>
-              </a>
-            </th>
-            <th class="th-lg">
-              <a href="">
-                <i class="fas fa-sort ml-1"></i>
-              </a>
             </th>
           </tr>
         </thead>
@@ -90,10 +77,12 @@
                     </th>
                     <td>@cliente.Name</td>
                     <td>@cliente.Email</td>
+                    <td>@cliente.Telefone</td>
                     <td>@cliente.Date</td>
-                    <td>@cliente.Cpf</td>
-                    <td>@cliente.Genero</td>
-                    <td>@(@cliente.Bloqueado ? "Sim": "Não")</td>
+                   
+                    <td> 
+                        <input class="form-check-input" type="checkbox" id="IdBloqueado" checked=@cliente.Bloqueado>
+                    </td>
                     
                     <td>
                       <div class="btn-group" role="group">

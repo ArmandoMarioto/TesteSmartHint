@@ -7,12 +7,15 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
   <script type="text/javascript">
     $("#telefone").mask("(00) 00000-0000");
+    $("#cpf").mask("###.###.###-##");
+    $("#cnpj").mask("##.###.###/####-##");
+    $("#estadual").mask("###.###.###-###");
     </script>
 <div class="text-center">
     <h1 class="display-4">Cadastrar cliente</h1>
 </div>
 
-<form asp-controller='Cliente' asp-action='Criar' method='post'>
+<form  class="needs-validation" asp-controller='Cliente' asp-action='Criar' method='post'>
   <div class="mb-3">
     <h4 for="name" class="form-label"
     data-bs-toggle="tooltip" data-bs-placement="right" title="Nome completo ou Razão Social do Cliente.*"
@@ -20,6 +23,9 @@
     <input type="text" asp-for='Name' class="form-control"
     maxlength="150"
      >
+     <div class="valid-tooltip">
+        Nome completo ou Razão Social do Cliente.
+      </div>
      @Html.ValidationMessageFor(cliente => cliente.Name)
   </div>
 
@@ -34,7 +40,7 @@
   <div class="mb-3">
     <h4 for="telefone" class="form-label"
     data-bs-toggle="tooltip" data-bs-placement="right" title="Telefone do Cliente.">Telefone*</h4>
-    <input type="text" asp-for='Telefone' class="form-control" id="telefone" placeholder='(##)#####-####' title="Telefone do Cliente"
+    <input type="text" asp-for='Telefone' class="form-control" id="telefone" placeholder='(##) #####-####' title="Telefone do Cliente"
      >
      @Html.ValidationMessageFor(cliente => cliente.Telefone)
   </div>
@@ -54,23 +60,35 @@
       <option value="2">Jurídica</option>
 </select>
 
-  <div class="mb-3">
-    <h4 for="cpf" class="form-label"
-    data-bs-toggle="tooltip" data-bs-placement="right" title="Insira o CPF ou o CNPJ do Cliente.">CPF</h4>
-    <input type="text" asp-for='Cpf' class="form-control .cpf-mask" id="cpf"
-    pattern="^\d{3}\.\d{3}\.\d{3}-\d{2}$">
-  </div>
+    <div class="mb-3" id='divCpf'>
+        <h4 for="cpf" class="form-label"
+        data-bs-toggle="tooltip" data-bs-placement="right" title="Insira o CPF do Cliente.">CPF</h4>
+        <input type="text" asp-for='Cpf' class="form-control" id="cpf" placeholder="###.###.###-##"
+        maxlength="14"
+        pattern="^\d{3}\.\d{3}\.\d{3}-\d{2}$">
+    </div>
+
+    <div class="mb-3" id='divCnpj'>
+        <h4 for="cpf" class="form-label"
+        data-bs-toggle="tooltip" data-bs-placement="right" title="Insira o CNPJ do Cliente.">CNPJ</h4>
+        <input type="text" asp-for='Cpf' class="form-control" id="cnpj" placeholder="##.###.###/####-##"
+        maxlength="18"
+        pattern="^\d{2}\.\d{3}\.\d{3}/\d{4}-\d{2}$">
+    </div>
+   
+    
   
   <div class="mb-3">
     <h4 for="Estadual" class="form-label"
     data-bs-toggle="tooltip" data-bs-placement="right" title="Inscrição Estadual do Cliente, selecionar Isento caso assim for.">
     Inscrição Estadual:</h4>
-    <input type="text" asp-for='Estadual' class="form-control" placeholder='###.###.###-###' 
-    pattern="^\d{3}\.\d{3}\.\d{3}-\d{2}$" >
+    <input type="text" asp-for='Estadual'id="estadual" class="form-control" placeholder='###.###.###-###' 
+    maxlength="15"
+    pattern="^\d{3}\.\d{3}\.\d{3}-\d{3}$" >
   </div>
 
   <div class="mb-3">
-  <input class="form-check-input" style="margin:20px 10px 0px 10px;" asp-for='Isento' type="checkbox" value="" id="flexCheckDefault">
+  <input class="form-check-input" style="margin:20px 10px 0px 10px;" asp-for='Isento' type="checkbox"  id="flexCheckDefault">
   <label class="form-check-label" style="font-size:32px;" for="flexCheckDefault" data-bs-toggle="tooltip" data-bs-placement="right" title="Isentar Cliente...">
       <b>Isento</b>
   </label>
@@ -90,7 +108,7 @@ data-bs-toggle="tooltip" data-bs-placement="right" title="Selecione o gênero do
   </div>
 
    <div class="mb-3">
-  <input style="margin:20px 10px 0px 10px;" class="form-check-input" asp-for='Bloqueado' type="checkbox" value="" id="bloqueadoCheck">
+  <input style="margin:20px 10px 0px 10px;" class="form-check-input" asp-for='Bloqueado' type="checkbox"  id="bloqueadoCheck">
   <label class="form-check-label" style="font-size:32px;" for="bloqueadoCheck" data-bs-toggle="tooltip" data-bs-placement="right" title="Bloqueio o acesso do Cliente na sua Loja.">
     <b>Bloqueado</b>
   </label>

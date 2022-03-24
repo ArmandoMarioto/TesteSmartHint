@@ -33,6 +33,27 @@ $(document).ready(function () {
         }
     });
 });
+$('#tipo').ready(function () {
+    if ($('#tipo').val() == 1) {
+        $('#divCpf').show();
+        $('#divCnpj').hide();
+    } else {
+        $('#divCpf').hide();
+        $('#divCnpj').show();
+    }
+
+})
+
+$('#tipo').change(function () {
+    if ($('#tipo').val() == 1) {
+        $('#divCpf').show();
+        $('#divCnpj').hide();
+    } else {
+        $('#divCpf').hide();
+        $('#divCnpj').show();
+    }
+    
+})
 
 $('.alert-success').after(function () {
     setTimeout(() => $('.alert-success').hide('hide'), 5000);
