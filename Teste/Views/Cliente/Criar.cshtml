@@ -15,7 +15,7 @@
     <h1 class="display-4">Cadastrar cliente</h1>
 </div>
 
-<form  class="needs-validation" asp-controller='Cliente' asp-action='Criar' method='post'>
+<form  class="needs-validation" asp-controller='Cliente' asp-action='Criar' method='post' id="IdForm">
   <div class="mb-3">
     <h4 for="name" class="form-label"
     data-bs-toggle="tooltip" data-bs-placement="right" title="Nome completo ou Razão Social do Cliente.*"
@@ -116,7 +116,7 @@ data-bs-toggle="tooltip" data-bs-placement="right" title="Selecione o gênero do
 
   <div class="mb-3">
     <h4 for="senha" class="form-label">Senha de Acesso:*</h4>
-    <input type="password" asp-for='senha' class="form-control"
+    <input type="password" asp-for='Senha' class="form-control"
     maxlength='15'
     min='8'
     >

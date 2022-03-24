@@ -36,9 +36,9 @@ $(document).ready(function () {
 $('#tipo').ready(function () {
     if ($('#tipo').val() == 1) {
         $('#divCpf').show();
-        $('#divCnpj').hide();
+        $('#divCnpj').remove();
     } else {
-        $('#divCpf').hide();
+        $('#divCpf').remove();
         $('#divCnpj').show();
     }
 
@@ -47,9 +47,9 @@ $('#tipo').ready(function () {
 $('#tipo').change(function () {
     if ($('#tipo').val() == 1) {
         $('#divCpf').show();
-        $('#divCnpj').hide();
+        $('#divCnpj').remove();
     } else {
-        $('#divCpf').hide();
+        $('#divCpf').remove();
         $('#divCnpj').show();
     }
     

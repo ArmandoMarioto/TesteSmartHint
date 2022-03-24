@@ -49,7 +49,7 @@ namespace Teste.Models
         public bool Bloqueado { get; set; }
 
         [Required(ErrorMessage = "Digite a senha do cliente!")]
-        public string senha { get; set; }
+        public string Senha { get; set; }
 
     }
 }

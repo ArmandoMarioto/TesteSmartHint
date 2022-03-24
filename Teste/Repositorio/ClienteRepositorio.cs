@@ -30,8 +30,18 @@ namespace Teste.Repositorio
         {
             ClienteModel clientedb = BuscaPorId(cliente.Id);
             if (clientedb == null) throw new Exception("Houve um erro na atualização do cliente.");
-
             clientedb.Name = cliente.Name;
+            clientedb.Email = cliente.Email;
+            clientedb.Telefone = cliente.Telefone;
+            clientedb.Date = cliente.Date;
+            clientedb.Tipo = cliente.Tipo;
+            clientedb.Cpf = cliente.Cpf;
+            clientedb.Estadual = cliente.Estadual;
+            clientedb.Isento = cliente.Isento;
+            clientedb.Genero = cliente.Genero;
+            clientedb.Nascimento = cliente.Nascimento;
+            clientedb.Bloqueado = cliente.Bloqueado;
+            clientedb.Senha = cliente.Senha;
             _bancoContext.Clientes.Update(clientedb);
             _bancoContext.SaveChanges();
 
