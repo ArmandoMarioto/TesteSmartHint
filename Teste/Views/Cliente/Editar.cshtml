@@ -16,36 +16,92 @@
     <h1 class="display-4">Editar cliente</h1>
 </div>
 
+ @if(TempData["MensagemEmail"] != null)
+    {
+       <div class="toast-container" style="position: absolute; top: 10px; right: 10px; color:red">
+    <div class="toast fade show">
+        <div class="toast-header">
+            <strong class="me-auto"><i class="bi-globe"></i> Aviso!</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+        </div>
+        <div class="toast-body">
+            @TempData["MensagemEmail"]
+        </div>
+    </div>
+</div>
 
-<form asp-controller='Cliente' asp-action='Alterar' method='post'>
+    }
+        @if(TempData["MensagemCpf"] != null)
+    {
+       <div class="toast-container" style="position: absolute; top: 10px; right: 10px; color:red">
+    <div class="toast fade show">
+        <div class="toast-header">
+            <strong class="me-auto"><i class="bi-globe"></i> Aviso!</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+        </div>
+        <div class="toast-body">
+            @TempData["MensagemCpf"]
+        </div>
+    </div>
+</div>
+
+    }
+        @if(TempData["MensagemCnpj"] != null)
+    {
+       <div class="toast-container" style="position: absolute; top: 10px; right: 10px; color:red">
+    <div class="toast fade show">
+        <div class="toast-header">
+            <strong class="me-auto"><i class="bi-globe"></i> Aviso!</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+        </div>
+        <div class="toast-body">
+            @TempData["MensagemCnpj"]
+        </div>
+    </div>
+</div>
+
+    }
+        @if(TempData["MensagemEstadual"] != null)
+    {
+       <div class="toast-container" style="position: absolute; top: 10px; right: 10px; color:red">
+    <div class="toast fade show">
+        <div class="toast-header">
+            <strong class="me-auto"><i class="bi-globe"></i> Aviso!</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+        </div>
+        <div class="toast-body">
+            @TempData["MensagemEstadual"]
+        </div>
+    </div>
+</div>
+
+    }
+
+
+<form class="needs-validation" novalidate asp-controller='Cliente' asp-action='Alterar' method='post'>
     <input type='hidden' asp-for=@Model.Id/>
     <div class="mb-3">
     <h4 for="name" class="form-label"
-    data-bs-toggle="tooltip" data-bs-placement="right" title="Nome completo ou Razão Social do Cliente.*"
-    >Nome do Cliente/Razão Social:</h4>
+    data-bs-toggle="tooltip" title="Nome completo ou Razão Social do Cliente."
+    >Nome do Cliente/Razão Social*:</h4>
     <input type="text" asp-for='Name' class="form-control"
-    maxlength="150"
-     >
-     <div class="valid-tooltip">
-        Nome completo ou Razão Social do Cliente.
-      </div>
-     @Html.ValidationMessageFor(cliente => cliente.Name)
+    maxlength="150" required title="Nome completo ou Razão Social do Cliente."
+      pattern="^[a-zA-Z0-9._\b ]+$">
   </div>
 
   <div class="mb-3">
     <h4 for="email" class="form-label"
     data-bs-toggle="tooltip" data-bs-placement="right" title="E-mail do Cliente.">E-Mail:*</h4>
     <input type="email" asp-for='Email' class="form-control"
-     maxlength="150">
-    @Html.ValidationMessageFor(cliente => cliente.Email)
+     maxlength="150" required title="E-mail do Cliente."
+      pattern="^[a-zA-Z0-9._\b@@]+$">
   </div>
     
   <div class="mb-3">
     <h4 for="telefone" class="form-label"
     data-bs-toggle="tooltip" data-bs-placement="right" title="Telefone do Cliente.">Telefone*</h4>
     <input type="text" asp-for='Telefone' class="form-control" id="telefone" placeholder='(##) #####-####' title="Telefone do Cliente"
-     >
-     @Html.ValidationMessageFor(cliente => cliente.Telefone)
+       required minlength="15">
   </div>
 
   <div class="mb-3">
@@ -58,45 +114,41 @@
 </div>
     <h4 for="tipo" class="form-label">Tipo de Pessoa:*</h4>
   <select id='tipo' asp-for='Tipo' class="form-select form-select-lg mb-3" aria-label=".form-select-lg example"
-      data-bs-toggle="tooltip" data-bs-placement="right" title="Selecione o tipo de Pessoa." required>
-      <option value="1" selected>Física</option>
-      <option value="2">Jurídica</option>
+      data-bs-toggle="tooltip" data-bs-placement="right" title="Selecione o tipo de Pessoa.">
+      <option value="Física">Física</option>
+      <option value="Jurídica">Jurídica</option>
 </select>
 
     <div class="mb-3" id='divCpf'>
         <h4 for="cpf" class="form-label"
         data-bs-toggle="tooltip" data-bs-placement="right" title="Insira o CPF do Cliente.">CPF</h4>
         <input type="text" asp-for='Cpf' class="form-control" id="cpf" placeholder="###.###.###-##"
-        maxlength="14"
-        pattern="^\d{3}\.\d{3}\.\d{3}-\d{2}$">
+        minlength="14" maxlength="14" required/>
     </div>
 
     <div class="mb-3" id='divCnpj'>
         <h4 for="cpf" class="form-label"
         data-bs-toggle="tooltip" data-bs-placement="right" title="Insira o CNPJ do Cliente.">CNPJ</h4>
-        <input type="text" asp-for='Cpf' class="form-control" id="cnpj" placeholder="##.###.###/####-##"
-        maxlength="18"
-        pattern="^\d{2}\.\d{3}\.\d{3}/\d{4}-\d{2}$">
+        <input type="text" asp-for='Cnpj' class="form-control" id="cnpj" placeholder="##.###.###/####-##"
+        minlength="18" maxlength="18" required/>
     </div>
-   
-    
   
-  <div class="mb-3">
+  <div class="mb-3" id='divEstadual'>
     <h4 for="Estadual" class="form-label"
     data-bs-toggle="tooltip" data-bs-placement="right" title="Inscrição Estadual do Cliente, selecionar Isento caso assim for.">
     Inscrição Estadual:</h4>
-    <input type="text" asp-for='Estadual'id="estadual" class="form-control" placeholder='###.###.###-###' 
-    maxlength="15"
-    pattern="^\d{3}\.\d{3}\.\d{3}-\d{3}$" >
+    <input type="text" asp-for='Estadual'id="inputEstadual" class="form-control" placeholder='###.###.###-###' 
+    minlength="15" maxlength="15" required/>
   </div>
 
   <div class="mb-3">
-  <input class="form-check-input" style="margin:20px 10px 0px 10px;" asp-for='Isento' type="checkbox"  id="flexCheckDefault">
+  <input class="form-check-input" style="margin:20px 10px 0px 10px;" asp-for='Isento' type="checkbox"  id="checkIsento">
   <label class="form-check-label" style="font-size:32px;" for="flexCheckDefault" data-bs-toggle="tooltip" data-bs-placement="right" title="Isentar Cliente...">
       <b>Isento</b>
   </label>
 </div>
 
+<div class="mb-3" id='divGenero'>
 <h4 for="genero" class="form-label"
 data-bs-toggle="tooltip" data-bs-placement="right" title="Selecione o gênero do Cliente.">Gênero:*</h4>
   <select id='genero' asp-for='Genero' class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
@@ -104,33 +156,40 @@ data-bs-toggle="tooltip" data-bs-placement="right" title="Selecione o gênero do
       <option value="2">Masculino</option>
       <option value="3">Outro</option>
 </select>
+</div>
 
-  <div class="mb-3">
+  <div class="mb-3" id='divNascimento'>
     <h4 for="nascimento" class="form-label">Data de Nascimento</h4>
-    <input type="date" asp-for='Nascimento' class="form-control" placeholder='Digite seu telefone'>
+    <input id="nascimento" type="date" asp-for='Nascimento' class="form-control" placeholder='Digite seu telefone' required>
   </div>
 
-   <div class="mb-3">
-  <input style="margin:20px 10px 0px 10px;" class="form-check-input" asp-for='Bloqueado' type="checkbox"  id="bloqueadoCheck">
-  <label class="form-check-label" style="font-size:32px;" for="bloqueadoCheck" data-bs-toggle="tooltip" data-bs-placement="right" title="Bloqueio o acesso do Cliente na sua Loja.">
+  <div class="text-left">
+    <h4>Área de Situação do Cliente</h4>
+</div>
+
+    <div class="mb-3">
+  <input style="margin:10px 10px 0px 10px;" class="form-check-input" asp-for='Bloqueado' type="checkbox"  id="bloqueadoCheck">
+  <label class="form-check-label" style="font-size:20px;" for="bloqueadoCheck" data-bs-toggle="tooltip" data-bs-placement="right" title="Bloqueio o acesso do Cliente na sua Loja.">
     <b>Bloqueado</b>
   </label>
 </div>
-
+  <div class="text-center">
+    <h1 class="display-4">Área de Senha de Acesso</h1>
+</div>
   <div class="mb-3">
     <h4 for="senha" class="form-label">Senha de Acesso:*</h4>
-    <input type="password" asp-for='Senha' class="form-control"
-    maxlength='15'
-    min='8'
-    >
+    <input id="senha" type="password" asp-for='Senha' class="form-control" required 
+    minlength="8" maxlength="15" title="Senha de Acesso."
+      pattern="^[a-zA-Z0-9._\b]+$"/>
+      <label id="labelSenhaErrada"style="font-size:20px; color:red" hidden>As senhas não conferem</label>
   </div>
 
   <div class="mb-3">
     <h4 for="confirmacaoSenha" class="form-label">Confirmação da Senha de Acesso:*</h4>
-    <input type="password" class="form-control"
-    maxlength='15'
-    min='8'
-    >
+    <input id="confirmacaoSenha" type="password" asp-for='Senha' class="form-control" required
+    minlength="8" maxlength="15" title="Confirmação da Senha de Acesso."
+      pattern="^[a-zA-Z0-9._\b]+$"/>
+      <label id="labelSenhaErrada" style="font-size:20px; color:red" hidden>As senhas não conferem</label>
   </div>
   <div class="d-grid gap-2">
   <button type="submit" class="btn btn-primary">Alterar</button>

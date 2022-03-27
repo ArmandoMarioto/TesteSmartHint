@@ -56,5 +56,25 @@ namespace Teste.Repositorio
             _bancoContext.SaveChanges();
             return true;
         }
+
+        public ClienteModel BuscaPorEmail(string Email)
+        {
+            return _bancoContext.Clientes.FirstOrDefault(cliente => cliente.Email == Email);
+        }
+
+        public ClienteModel BuscaPorCpf(string Cpf)
+        {
+            return _bancoContext.Clientes.FirstOrDefault(cliente => cliente.Cpf == Cpf);
+        }
+
+        public ClienteModel BuscaPorCnpj(string Cnpj)
+        {
+            return _bancoContext.Clientes.FirstOrDefault(cliente => cliente.Cnpj == Cnpj);
+        }
+
+        public ClienteModel BuscaPorEstadual(string Estadual)
+        {
+            return _bancoContext.Clientes.FirstOrDefault(cliente => cliente.Estadual == Estadual);
+        }
     }
 }

@@ -51,9 +51,9 @@ namespace Teste.Controllers
                     $"tente novamente, detalhe do erro:{error.Message}";
                 return RedirectToAction("Index");
             }
-            
+
         }
-        
+
         [HttpPost]
         public IActionResult Criar(ClienteModel cliente)
         {
@@ -61,9 +61,48 @@ namespace Teste.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    _clienteRepositorio.Adicionar(cliente);
-                    TempData["MensagemSucesso"] = "Cliente cadastrado com sucesso!!!";
-                    return RedirectToAction("Index");
+                    ClienteModel resultadoEmail = _clienteRepositorio.BuscaPorEmail(cliente.Email);
+
+                    if (resultadoEmail == null)
+                    {
+                        if (cliente.Tipo == "Física")
+                        {
+                            ClienteModel resultadoCpf = _clienteRepositorio.BuscaPorCpf(cliente.Cpf);
+                            if(resultadoCpf != null)
+                            {
+                                TempData["MensagemCpf"] = "Este CPF já está cadastrado para outro Cliente";
+                                return View("Criar", cliente);
+                            }
+                        }
+                        else
+                        {
+                            ClienteModel resultadoCnpj = _clienteRepositorio.BuscaPorCnpj(cliente.Cnpj);
+                            if (resultadoCnpj != null)
+                            {
+                                TempData["MensagemCnpj"] = "Este CNPJ já está cadastrado para outro Cliente";
+                                return View("Criar", cliente);
+                            }
+                            else if(!cliente.Isento)
+                            {
+                                ClienteModel resultadoEstadual = _clienteRepositorio.BuscaPorEstadual(cliente.Estadual);
+                                if (resultadoEstadual != null)
+                                {
+                                    TempData["MensagemEstadual"] = "Esta Inscrição Estadual já está cadastrada para outro Cliente";
+                                    return View("Criar", cliente);
+                                }
+                            }
+                        }
+
+                        _clienteRepositorio.Adicionar(cliente);
+                        TempData["MensagemSucesso"] = "Cliente cadastrado com sucesso!!!";
+                        return RedirectToAction("Index");
+                    }
+                    else
+                    {
+                        TempData["MensagemEmail"] = "Este e-mail já está cadastrado para outro Cliente";
+                        return View("Criar", cliente);
+                    }
+
                 }
 
                 return View(cliente);
@@ -84,10 +123,50 @@ namespace Teste.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    _clienteRepositorio.Atualizar(cliente);
-                    TempData["MensagemSucesso"] = "Cliente alterado com sucesso!!!";
-                    return RedirectToAction("Index");
+                    ClienteModel resultadoEmail = _clienteRepositorio.BuscaPorEmail(cliente.Email);
+
+                    if ((resultadoEmail != null && resultadoEmail.Id == cliente.Id) || resultadoEmail == null)
+                    {
+                        if (cliente.Tipo == "Física")
+                        {
+                            ClienteModel resultadoCpf = _clienteRepositorio.BuscaPorCpf(cliente.Cpf);
+                            if (resultadoCpf != null && resultadoCpf.Id != cliente.Id)
+                            {
+                                TempData["MensagemCpf"] = "Este CPF já está cadastrado para outro Cliente";
+                                return View("Editar", cliente);
+                            }
+                        }
+                        else
+                        {
+                            ClienteModel resultadoCnpj = _clienteRepositorio.BuscaPorCnpj(cliente.Cnpj);
+                            if (resultadoCnpj != null && resultadoCnpj.Id != cliente.Id)
+                            {
+                                TempData["MensagemCnpj"] = "Este CNPJ já está cadastrado para outro Cliente";
+                                return View("Editar", cliente);
+                            }
+                            else if (!cliente.Isento)
+                            {
+                                ClienteModel resultadoEstadual = _clienteRepositorio.BuscaPorEstadual(cliente.Estadual);
+                                if (resultadoEstadual != null && resultadoEstadual.Id != cliente.Id)
+                                {
+                                    TempData["MensagemEstadual"] = "Esta Inscrição Estadual já está cadastrada para outro Cliente";
+                                    return View("Editar", cliente);
+                                }
+                            }
+                        }
+
+                        _clienteRepositorio.Atualizar(cliente);
+                        TempData["MensagemSucesso"] = "Cliente alterado com sucesso!!!";
+                        return RedirectToAction("Index");
+                    }
+                    else
+                    {
+                        TempData["MensagemEmail"] = "Este e-mail já está cadastrado para outro Cliente";
+                        return View("Editar", cliente);
+                    }
+
                 }
+
                 return View("Editar", cliente);
             }
             catch (Exception error)
@@ -96,7 +175,7 @@ namespace Teste.Controllers
                     $"tente novamente, detalhe do erro:{error.Message}";
                 return RedirectToAction("Index");
             }
-            
+
         }
     }
 }

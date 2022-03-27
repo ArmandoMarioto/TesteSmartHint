@@ -9,6 +9,10 @@
 sua Loja ou realize o cadastro de novos Cliente</h2>
         <a class='btn btn-primary' style="float:right;" role='button' asp-controller='Cliente' asp-action='Criar'>Adicionar Cliente</a>
     </div>
+
+    <br />
+    <br />
+    <br />
     <br />
     @if(TempData["MensagemSucesso"] != null)
     {
@@ -39,7 +43,6 @@ sua Loja ou realize o cadastro de novos Cliente</h2>
           <tr>
             <th>
               <input class="form-check-input" type="checkbox" id="checkbox">
-              <label class="form-check-label" for="checkbox" class="mr-2 label-table"></label>
             </th>
             <th class="th-lg">
               <a>Nome/Razão Social:
@@ -98,5 +101,5 @@ sua Loja ou realize o cadastro de novos Cliente</h2>
       </table>
       <!--Table-->
     </div>
-
+    </div>
   </div>

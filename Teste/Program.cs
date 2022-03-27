@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Teste.Data;
 using Teste.Repositorio;
 
@@ -6,11 +7,11 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-builder.Services.AddDbContext<BancoContext>(options => options.UseMySQL(
-    "server=localhost;initial catalog=BancoTesteHint;uid=armando;pwd=010203"
-    ));
-builder.Services.AddScoped<IClienteRepositorio, ClienteRepositorio>();
 
+builder.Services.AddDbContext<BancoContext>(options => options.UseMySQL(
+    builder.Configuration.GetConnectionString("DataBase")
+    )); 
+builder.Services.AddScoped<IClienteRepositorio, ClienteRepositorio>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

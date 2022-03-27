@@ -34,25 +34,99 @@ $(document).ready(function () {
     });
 });
 $('#tipo').ready(function () {
-    if ($('#tipo').val() == 1) {
+    if ($('#tipo').val() != "Jurídica") {
         $('#divCpf').show();
-        $('#divCnpj').remove();
+        $('#cpf').prop("disabled", false);
+        $('#genero').prop("disabled", false);
+        $('#divGenero').show();
+        $('#nascimento').prop("disabled", false);
+        $('#divNascimento').show();
+
+        $('#inputEstadual').prop("disabled", true);
+        $('#divEstadual').hide();
+        $('#cnpj').prop("disabled", true);
+        $('#divCnpj').hide();
     } else {
-        $('#divCpf').remove();
+        $('#inputEstadual').prop("disabled", false);
+        $('#divEstadual').show();
         $('#divCnpj').show();
+        $('#cnpj').prop("disabled", false);
+
+        $('#cpf').prop("disabled", true);
+        $('#divCpf').hide();
+        $('#genero').prop("disabled", true);
+        $('#divGenero').hide();
+        $('#nascimento').prop("disabled", true);
+        $('#divNascimento').hide();
     }
 
 })
 
 $('#tipo').change(function () {
-    if ($('#tipo').val() == 1) {
+    if ($('#tipo').val() != "Jurídica") {
         $('#divCpf').show();
-        $('#divCnpj').remove();
+        $('#cpf').prop("disabled", false);
+        $('#genero').prop("disabled", false);
+        $('#divGenero').show();
+        $('#nascimento').prop("disabled", false);
+        $('#divNascimento').show();
+
+        $('#inputEstadual').prop("disabled", true);
+        $('#divEstadual').hide();
+        $('#cnpj').prop("disabled", true);
+        $('#divCnpj').hide();
     } else {
-        $('#divCpf').remove();
+        $('#inputEstadual').prop("disabled", false);
+        $('#divEstadual').show();
         $('#divCnpj').show();
+        $('#cnpj').prop("disabled", false);
+
+        $('#cpf').prop("disabled", true);
+        $('#divCpf').hide();
+        $('#genero').prop("disabled", true);
+        $('#divGenero').hide();
+        $('#nascimento').prop("disabled", true);
+        $('#divNascimento').hide();
     }
     
+})
+
+$('#checkIsento').change(function () {
+    if ($('#checkIsento').prop("checked")) {
+        $('#estadual').prop("value", "");
+        $('#estadual').prop("disabled", true);
+    } else {
+        $('#estadual').prop("disabled", false);
+    }
+
+})
+
+$('#checkIsento').ready(function () {
+    if ($('#checkIsento').prop("checked")) {
+        $('#estadual').prop("value", "");
+        $('#estadual').prop("disabled", true);
+    } else {
+        $('#estadual').prop("disabled", false);
+    }
+
+})
+
+$('#IdForm').submit(function () {
+    var senha = $('#senha').val();
+    var confirmacaoSenha = $('#confirmacaoSenha').val();
+    var senhaErrada = $('#labelSenhaErrada');
+
+    senhaErrada.prop("hidden", true);
+
+    if (senha == confirmacaoSenha) {
+        return true;
+    }
+    else {
+        $('#senha').focus();
+        senhaErrada.prop("hidden", false);
+        senhaErrada.removeAttr("hidden");
+        return false;
+    }
 })
 
 $('.alert-success').after(function () {

@@ -20,36 +20,34 @@ namespace Teste.Models
          * bloqueado
          * senha
          */
-        [Required(ErrorMessage ="Digite o nome do Cliente!")]
-        public string Name { get; set; }
-        [Required (ErrorMessage ="Digite o Email do cliente!")]
+        [Required(ErrorMessage = "Nome completo ou Razão Social do Cliente.")]
+        public string? Name { get; set; }
+        [Required (ErrorMessage = "Digite o E-mail do Cliente.")]
         [EmailAddress(ErrorMessage = "O e-mail informado não é valido!")]
-        public string Email { get; set; }
-        [Required (ErrorMessage = "Digite o Telefone do cliente!")]
+        public string? Email { get; set; }
+        [Required (ErrorMessage = "Digite o Telefone do Cliente.")]
         [Phone (ErrorMessage = "O Telefone informado não é valido!")]
-        public string Telefone { get; set; }
+        public string? Telefone { get; set; }
         [Required]
         public DateTime Date { get; set; }
 
-        public string Tipo { get; set; }
-        [Required(ErrorMessage = "Digite o CPF/CNPJ do cliente!")]
-        public string Cpf { get; set; }
-        
-        [Required (ErrorMessage = "Digite o Estadual do cliente!")]
-        public string Estadual { get; set; }
+        [Required(ErrorMessage = "Selecione o tipo de Pessoa.")]
+        public string? Tipo { get; set; }
+
+        public string? Cpf { get; set; }
+
+        public string? Cnpj { get; set; }
+
+        public string? Estadual { get; set; }
         
         [Required(ErrorMessage = "Erro no campo Isento!")]
         public bool Isento { get; set; }
         
-        [Required(ErrorMessage = "Erro no campo Genero!")]
-        public string Genero { get; set; }
-
-        [Required(ErrorMessage = "Selecione a data de nascimento.")]
-        public string Nascimento { get; set; }
+        public string? Genero { get; set; }
+        public string? Nascimento { get; set; }
         public bool Bloqueado { get; set; }
 
         [Required(ErrorMessage = "Digite a senha do cliente!")]
-        public string Senha { get; set; }
-
+        public string? Senha { get; set; }
     }
 }
