@@ -42,7 +42,7 @@ sua Loja ou realize o cadastro de novos Cliente</h2>
         <thead>
           <tr>
             <th>
-              <input class="form-check-input" type="checkbox" id="checkbox">
+              <input class="form-check-input" type="checkbox" id="checkboxCol" value=@Model.Count()>
             </th>
             <th class="th-lg">
               <a>Nome/Razão Social:
@@ -84,7 +84,7 @@ sua Loja ou realize o cadastro de novos Cliente</h2>
                     <td>@cliente.Date</td>
                    
                     <td> 
-                        <input class="form-check-input" type="checkbox" id="IdBloqueado" checked=@cliente.Bloqueado>
+                        <input class="check-input" type="checkbox" id="IdBloqueado" checked=@cliente.Bloqueado asp-route-id='@cliente.Id' asp-controller='Cliente' asp-action='Editar'/>
                     </td>
                     
                     <td>

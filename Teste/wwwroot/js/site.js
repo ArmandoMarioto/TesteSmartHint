@@ -101,6 +101,7 @@ $('#checkIsento').change(function () {
 
 })
 
+
 $('#checkIsento').ready(function () {
     if ($('#checkIsento').prop("checked")) {
         $('#estadual').prop("value", "");
@@ -109,6 +110,15 @@ $('#checkIsento').ready(function () {
         $('#estadual').prop("disabled", false);
     }
 
+})
+
+$('#checkboxCol').change(function () {
+    if ($('#checkboxCol').prop("checked")) {
+        $('.form-check-input').prop("checked", true);
+    }
+    else {
+        $('.form-check-input').prop("checked", false);
+    }
 })
 
 $('#IdForm').submit(function () {
